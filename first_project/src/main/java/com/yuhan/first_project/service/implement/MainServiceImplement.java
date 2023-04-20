@@ -10,7 +10,6 @@ import com.yuhan.first_project.service.MainService;
 @Service
 public class MainServiceImplement  implements MainService{
 
-
     @Override
     public String hello() {
         return "Hello syh";
