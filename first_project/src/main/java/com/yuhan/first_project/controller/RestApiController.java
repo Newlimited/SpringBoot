@@ -1,8 +1,12 @@
 package com.yuhan.first_project.controller;
 
+import javax.validation.Valid;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.StreamingHttpOutputMessage.Body;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.yuhan.first_project.dto.request.ExampleDto;
+import com.yuhan.first_project.dto.response.ExampleResponseDto;
 
 import ch.qos.logback.core.status.Status;
 
@@ -118,5 +125,23 @@ public class RestApiController {
         return ResponseEntity.status(408).body(dto);
                 // return dto.getData1() + dto.getData2() +"데이터를 받았습니다.";
         // return data + "데이터를 받았습니다.";
+    }
+    @PostMapping("lombok")
+    public ResponseEntity<ExampleResponseDto> lombok(
+            @Valid @RequestBody ExampleDto requestBody
+        ){
+            String data1 = requestBody.getParameter1();
+            String data2 = requestBody.getParameter2();
+            String data3 = requestBody.getParameter3();
+
+            // ExampleResponseDto responseDate = 
+            // new ExampleResponseDto(data1, data2, data3);
+
+            ExampleResponseDto responseData = 
+                ExampleResponseDto.builder().data1(data1).build();
+
+           System.out.println(responseData.toString());
+
+            return ResponseEntity.status(200).contentType(MediaType.APPLICATION_JSON).body(responseData);
     }
 }

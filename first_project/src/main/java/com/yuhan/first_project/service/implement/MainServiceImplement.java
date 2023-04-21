@@ -14,5 +14,4 @@ public class MainServiceImplement  implements MainService{
     public String hello() {
         return "Hello syh";
     }
-    
 }
