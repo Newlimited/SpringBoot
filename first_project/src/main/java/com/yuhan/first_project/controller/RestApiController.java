@@ -63,7 +63,7 @@ public class RestApiController {
     // private RestApiServiceImplement restApiService; // spring이 알아서 불러온다 
     public RestApiService restApiService;
 
-    public RestApiController(RestApiServiceImplement restApiService){
+    public RestApiController(RestApiService restApiService){
         this.restApiService = restApiService;
     }
 
