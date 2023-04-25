@@ -20,10 +20,11 @@ public class RestApiServiceImplement implements RestApiService {
     public String getMethod() {
         // 데이터 조회
         // 1. JpaRepository에 있는 findBy 메서드로 Entity 조회
-        ExampleEntity exampleEntity = 
-        exampleRepository.findById(1).get();
-
-        return exampleEntity.toString();
+        // ExampleEntity exampleEntity = 
+        // exampleRepository.findById(1).get();
+        ExampleEntity exampleEntity = exampleRepository.findByPk(1);
+        //By를 붙여서 조건을 걸수 있다.
+        return exampleEntity== null ? "null" :  exampleEntity.toString();
     }
 
     @Override
@@ -42,12 +43,30 @@ public class RestApiServiceImplement implements RestApiService {
     }
     @Override
     public String patchMethod() {
-        return null;
-    }
-    @Override
-    public String deleteMethod() {
-        return null;
-    }
-    
+        // 데이터 수정
+        // 1. 특정 조건으로 Entity 조회
+        ExampleEntity exampleEntity = exampleRepository.findById(1).get();
+        // 2. 데이터 변경
+        exampleEntity.setExampleColumn2("string2");
+        // 3. Entity 인스턴스 저장
+        exampleRepository.save(exampleEntity);
 
+        // 1. Entity 인스턴스 생성
+        ExampleEntity exampleEntity2 = 
+        new ExampleEntity(2, "String3", true);
+        // 2. Entity 인스턴스 저장
+        exampleRepository.save(exampleEntity2);
+        return null;
+    }
+        @Override
+        public String deleteMethod() {
+        // 데이터 삭제
+        // 1. JpaRepository에 있는 deleteeBy 메서드로 Entity 삭제
+        
+        //    exampleRepository.deleteById(1);
+        exampleRepository.deleteByExampleColumn2("string1"); 
+        
+
+        return null;
+    }
 }
