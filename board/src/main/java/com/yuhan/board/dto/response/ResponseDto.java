@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDto {
+public class ResponseDto { // 해당 클래스는 무조건 필수이므로 굳이 Notnull을 걸어줄 필요 없다.
     private String code;
     private String message;     
 }
