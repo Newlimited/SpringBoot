@@ -2,6 +2,10 @@ package com.yuhan.board.entity;
 
 
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,4 +35,21 @@ public class BoardEntity {
     private String writeDatetime;
     private int viewCount;
 
+
+
+    public BoardEntity(PostBoardRequestDto dto){
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = 
+        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String writeDatetime = simpleDateFormat.format(now);
+        
+        //boardNumber는 넣지 않을것이다 왜냐면 GeneratedValue를 걸어줘서 
+        this.boardWriterEmail = dto.getBoardWirterEmail();
+        this.boardTitle= dto.getBoardTitle();
+        this.boardContent =dto.getBoardContent();
+        this.boardImageUrl = dto.getBoardImageUrl();
+        this.writeDatetime = writeDatetime;
+        this.viewCount = 0;
+    
+    }
 }
