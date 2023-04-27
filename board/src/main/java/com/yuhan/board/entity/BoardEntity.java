@@ -1,0 +1,34 @@
+package com.yuhan.board.entity;
+
+
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.yuhan.board.dto.request.Board.PostBoardRequestDto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity(name="Board")
+@Table(name="Board")
+public class BoardEntity {
+    
+    @Id //boardNumber가 pk 그리고 AutoIncrease가 있기에 GeneratedValue생성
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int boardNumber;
+    private String boardWriterEmail;
+    private String boardTitle;
+    private String boardContent;
+    private String boardImageUrl;
+    private String writeDatetime;
+    private int viewCount;
+
+}
