@@ -155,8 +155,35 @@ public class BoardServiceImplement implements BoardService {
 
     @Override
     public ResponseEntity<ResponseDto> deleteBoard(String userEmail, Integer boardNumber) {
+        GetBoardResponseDto dto = new GetBoardResponseDto();
+       boardNumber = dto.getBoardNumber();
+       userEmail = dto.getBoardWriterEmail();
 
-        throw new UnsupportedOperationException("Unimplemented method 'deleteBoard'");
+       try{
+        //TODO 존재하지 않는 게시물 번호
+        BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+        if(boardEntity == null ) return CustomResponse.notExistBoardNumber();
+        
+        //TODO 존재 하지 않는 유저 이메일
+        boolean existedUserEmail = userRepository.existsByEmail(userEmail);
+        if(!existedUserEmail) return CustomResponse.notExistUserEmail();
+
+        //TODO 권한 x
+
+        boolean equalsWriter = boardEntity.getWriterEmail().equals(userEmail);
+        if(!equalsWriter) return CustomResponse.noPermission();
+
+        boardEntity.getTitle();
+        boardEntity.getContent();
+        boardEntity.getBoardImageUrl();
+
+        boardRepository.delete(boardEntity);
+
+       }catch(Exception exception){
+        exception.printStackTrace();
+        return CustomResponse.databaseError();
+        }
+      return CustomResponse.successs();
     }
 
 }
