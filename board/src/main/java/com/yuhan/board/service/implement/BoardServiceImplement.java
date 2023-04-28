@@ -83,12 +83,18 @@ public class BoardServiceImplement implements BoardService {
             if (boardNumber == null) {
                 return CustomResponse.vaildationFaild();
             }
+         
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+        
             // 선언과 호출시 매개변수.... int 는 null을 못받음 지금 boardNumber은 int로 잡혀있음
             // 그래서 예외를 적어줘야함
-            if (boardEntity == null) {
-                return CustomResponse.notExistBoardNumber();
-            }
+            if (boardEntity == null)  return CustomResponse.notExistBoardNumber();
+            
+            int viewCount = boardEntity.getViewCount();
+            boardEntity.setViewCount(++viewCount);
+            boardRepository.save(boardEntity);
+        
+
             String boardWriterEmail = boardEntity.getWriterEmail();
             UserEntity userEntity = userRepository.findByEmail(boardWriterEmail);
             List<CommentEntity> commentEntities = commentRepository.findByBoardNumber(boardNumber);
@@ -99,8 +105,7 @@ public class BoardServiceImplement implements BoardService {
             exception.printStackTrace();
             return CustomResponse.databaseError();
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body(body);
+        return CustomResponse.successs();
     }
 
     @Override
@@ -117,8 +122,35 @@ public class BoardServiceImplement implements BoardService {
 
     @Override
     public ResponseEntity<ResponseDto> patchBoard(PatchBoardRequestDto dto) {
+        int boardNumber = dto.getBoardNumber();
+        String userEmail = dto.getUserEmail();
+        String boardTitle = dto.getBoardTitle();
+        String boardContent = dto.getBoardContent();
+        String boardImageUrl = dto.getBoardImageUrl();
+       try{
+           //TODO : 존재하지 않는 게시물 번호 반환 boardNumber가 필요함
+        BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+        if (boardEntity == null) return CustomResponse.notExistBoardNumber();
+        
+        //TODO : 존재하지 않는 유저 이메일 이메일 이필요함
+        Boolean existedUserEmail = userRepository.existsByEmail(userEmail);
+        if(!existedUserEmail) return CustomResponse.notExistUserEmail();
+        
+        //TODO : 권한 없음
+        Boolean equalsWriter = boardEntity.getWriterEmail().equals(userEmail);
+        if(!equalsWriter) return CustomResponse.noPermission();
+        
+       boardEntity.setTitle(boardTitle);  
+       boardEntity.setContent(boardContent);
+       boardEntity.setBoardImageUrl(boardImageUrl);
+       
+       boardRepository.save(boardEntity);
 
-        throw new UnsupportedOperationException("Unimplemented method 'patchBoard'");
+       }catch (Exception exception){
+        exception.printStackTrace();
+        return CustomResponse.databaseError();
+       }
+       return CustomResponse.successs();
     }
 
     @Override
