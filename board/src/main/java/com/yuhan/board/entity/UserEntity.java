@@ -8,8 +8,9 @@ import javax.validation.constraints.Email;
 import com.yuhan.board.dto.request.User.PostUserRequestDto;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "User")

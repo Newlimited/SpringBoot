@@ -23,5 +23,7 @@ public class CommentEntity {
     private String userEmail;
     private int boardNumber;
     private String commentContent;
-    private String writeDatetime;
+    private String wrtieDatetime;
+    private String userNickname;
+    private String userProfileImageUrl;
 }   

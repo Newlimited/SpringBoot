@@ -29,8 +29,8 @@ public class BoardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardNumber;
     private String writerEmail;
-    private String boardTitle;
-    private String boardContent;
+    private String title;
+    private String content;
     private String boardImageUrl;
     private String writeDatetime;
     private int viewCount;
@@ -45,11 +45,10 @@ public class BoardEntity {
 
         //boardNumber는 넣지 않을것이다 왜냐면 GeneratedValue를 걸어줘서 
         this.writerEmail = dto.getBoardWriterEmail();
-        this.boardTitle= dto.getBoardTitle();
-        this.boardContent =dto.getBoardContent();
+        this.title = dto.getBoardTitle();
+        this.content = dto.getBoardContent();
         this.boardImageUrl = dto.getBoardImageUrl();
         this.writeDatetime = writeDatetime;
         this.viewCount = 0;
-    
     }
 }

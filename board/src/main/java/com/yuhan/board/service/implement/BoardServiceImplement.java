@@ -78,7 +78,6 @@ public class BoardServiceImplement implements BoardService {
     // 실패하면 code, message 형태인 조상클래스의 반환타입으로 반환될것이다.
     public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
         GetBoardResponseDto body = null;
-        ResponseDto errorBody = null;
 
         try {
             if (boardNumber == null) {
@@ -94,6 +93,7 @@ public class BoardServiceImplement implements BoardService {
             UserEntity userEntity = userRepository.findByEmail(boardWriterEmail);
             List<CommentEntity> commentEntities = commentRepository.findByBoardNumber(boardNumber);
             List<LikyEntity> likyEntities = likyRepository.findByBoardNumber(boardNumber);
+            body = new GetBoardResponseDto(boardEntity, userEntity, commentEntities, likyEntities);
 
         } catch (Exception exception) {
             exception.printStackTrace();
