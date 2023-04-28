@@ -48,7 +48,7 @@ public class BoardController {
 
     // 3. 게시물 목록 조회
     @GetMapping("/list")
-    public ResponseEntity<? super GetBoardListResponseDto> getBoar() {
+    public ResponseEntity<? super GetBoardListResponseDto> getBoard() {
         ResponseEntity<? super GetBoardListResponseDto> response = boardService.getBoardList();
         return response;
     }

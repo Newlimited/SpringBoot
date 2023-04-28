@@ -28,7 +28,7 @@ public class BoardEntity {
     @Id //boardNumber가 pk 그리고 AutoIncrease가 있기에 GeneratedValue생성
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int boardNumber;
-    private String boardWriterEmail;
+    private String writerEmail;
     private String boardTitle;
     private String boardContent;
     private String boardImageUrl;
@@ -42,9 +42,9 @@ public class BoardEntity {
         SimpleDateFormat simpleDateFormat = 
         new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String writeDatetime = simpleDateFormat.format(now);
-        
+
         //boardNumber는 넣지 않을것이다 왜냐면 GeneratedValue를 걸어줘서 
-        this.boardWriterEmail = dto.getBoardWirterEmail();
+        this.writerEmail = dto.getBoardWriterEmail();
         this.boardTitle= dto.getBoardTitle();
         this.boardContent =dto.getBoardContent();
         this.boardImageUrl = dto.getBoardImageUrl();

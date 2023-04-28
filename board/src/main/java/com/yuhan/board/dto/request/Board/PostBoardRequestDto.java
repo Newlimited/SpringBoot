@@ -14,7 +14,7 @@ public class PostBoardRequestDto {
     
     @NotBlank
     @Email
-    private String boardWirterEmail;
+    private String boardWriterEmail;
     @NotBlank
     private String boardTitle;
     @NotBlank
