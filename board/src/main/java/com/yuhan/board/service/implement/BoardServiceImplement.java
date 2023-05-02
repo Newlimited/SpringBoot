@@ -115,22 +115,22 @@ public class BoardServiceImplement implements BoardService {
 
         try{
             List<BoardListResultSet> resultSet = boardRepository.getList();
+            System.out.println(resultSet.size());
             body = new GetBoardListResponseDto(resultSet);
         }
         catch(Exception exception){
             exception.printStackTrace();
             return CustomResponse.databaseError();
         }
-
-        
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
     @Override
     public ResponseEntity<? super GetBoardListResponseDto> getBoardTop3() {
         GetBoardListResponseDto body = null;
-
         try{
+            List<BoardListResultSet> resultSet = boardRepository.getList();
+             body = new GetBoardListResponseDto(resultSet);
 
         }
         catch(Exception exception){
