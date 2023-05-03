@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import javax.crypto.SecretKey;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +28,7 @@ public class JwtTokenProvider {
         // 현재시간 + 1시간
 
         String jwt = Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, subject)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(expiredDate)
