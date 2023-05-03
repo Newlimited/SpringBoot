@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.StreamingHttpOutputMessage.Body;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -76,8 +77,10 @@ public class RestApiController {
     // GET Method : 클라이언트가 서버에게 데이터를 받기 위한 요청의 Method
     // @RequesetMaaping(method = RequestMethod.GET, value = "get-method")
     @GetMapping("get-method")
-    public String getMethod() {
-        return restApiService.getMethod();
+    public String getMethod(
+        @AuthenticationPrincipal String subject
+    ) {
+       return subject;
     }
 
     // POST Method @PostMapping
