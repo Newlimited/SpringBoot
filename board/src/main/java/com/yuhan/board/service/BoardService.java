@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import com.yuhan.board.dto.request.Board.PatchBoardRequestDto;
 import com.yuhan.board.dto.request.Board.PostBoardRequestDto;
 import com.yuhan.board.dto.response.ResponseDto;
-import com.yuhan.board.dto.response.board.GetBoardResponseDto;
 import com.yuhan.board.dto.response.board.GetBoardListResponseDto;
+import com.yuhan.board.dto.response.board.GetBoardResponseDto;
 
 public interface BoardService {
     public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto);

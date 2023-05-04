@@ -1,6 +1,7 @@
 package com.yuhan.board.dto.response.board;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.yuhan.board.dto.response.ResponseDto;
 import com.yuhan.board.entity.BoardEntity;
 import com.yuhan.board.entity.CommentEntity;

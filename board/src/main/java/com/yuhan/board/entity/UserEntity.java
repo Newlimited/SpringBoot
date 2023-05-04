@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 import com.yuhan.board.dto.request.User.PostUserRequestDto;
+import com.yuhan.board.dto.request.auth.SignUpRequetDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,15 @@ public class UserEntity {
     private String profileImageUrl;
 
     public UserEntity(PostUserRequestDto dto) {
+        this.email = dto.getUserEmail();
+        this.password = dto.getUserPassword();
+        this.nickname = dto.getUserNickname();
+        this.phoneNumber = dto.getUserPhoneNumber();
+        this.address = dto.getUserAddress();
+        this.consentPersonalInformation = true;
+        this.profileImageUrl = dto.getUserProfileImageUrl();
+    }
+    public UserEntity(SignUpRequetDto dto) {
         this.email = dto.getUserEmail();
         this.password = dto.getUserPassword();
         this.nickname = dto.getUserNickname();

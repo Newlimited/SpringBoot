@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yuhan.board.dto.request.Board.PatchBoardRequestDto;
 import com.yuhan.board.dto.request.Board.PostBoardRequestDto;
 import com.yuhan.board.dto.response.ResponseDto;
-import com.yuhan.board.service.BoardService;
-import com.yuhan.board.dto.response.board.GetBoardResponseDto;
 import com.yuhan.board.dto.response.board.GetBoardListResponseDto;
+import com.yuhan.board.dto.response.board.GetBoardResponseDto;
+import com.yuhan.board.service.BoardService;
 @RestController
 @RequestMapping("/api/v1/board")
 public class BoardController {
