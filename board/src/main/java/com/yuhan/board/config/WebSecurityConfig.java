@@ -1,5 +1,11 @@
 package com.yuhan.board.config;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,10 +13,28 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.yuhan.board.filter.JwtAuthenticationFilter;
+
+class FailedAuthenticationEntiryPoint implements AuthenticationEntryPoint{
+
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException authException) throws IOException, ServletException {
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                                        // 401 넣어줘도댐
+                response.getWriter().write("{\"code\": \"AF\", \"message\": \"Authentication Failed\"}"); 
+                                                // \를 걸어준것은 "를 문자로 인식하기위함 , escape 문자
+
+
+}
+    
+}
 
 @EnableWebSecurity
 @Configuration
@@ -35,7 +59,8 @@ public class WebSecurityConfig {
             .antMatchers("/api/v1/**", "/api/v2/auth/**").permitAll()
             .antMatchers("/api/v2/board/list", "/api/v2/board/top3").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v2/board/*").permitAll()
-            .anyRequest().authenticated();
+            .anyRequest().authenticated().and()
+            .exceptionHandling().authenticationEntryPoint(new FailedAuthenticationEntiryPoint() );
 
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

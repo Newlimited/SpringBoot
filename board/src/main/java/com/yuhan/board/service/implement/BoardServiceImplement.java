@@ -202,43 +202,7 @@ public class BoardServiceImplement implements BoardService {
         }
         return CustomResponse.successs();
     }
-
-    int boardNumber = dto.getBoardNumber();
-    String userEmail = dto.getUserEmail();
-    String boardTitle = dto.getBoardTitle();
-    String boardContent = dto.getBoardContent();
-    String boardImageUrl = dto.getBoardImageUrl();
     
-    try
-    {
-        // TODO : 존재하지 않는 게시물 번호 반환 boardNumber가 필요함
-        BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
-        if (boardEntity == null)
-            return CustomResponse.notExistBoardNumber();
-
-        // TODO : 존재하지 않는 유저 이메일 이메일 이필요함
-        Boolean existedUserEmail = userRepository.existsByEmail(userEmail);
-        if (!existedUserEmail)
-            return CustomResponse.notExistUserEmail();
-
-        // TODO : 권한 없음
-        Boolean equalsWriter = boardEntity.getWriterEmail().equals(userEmail);
-        if (!equalsWriter)
-            return CustomResponse.noPermission();
-
-        boardEntity.setTitle(boardTitle);
-        boardEntity.setContent(boardContent);
-        boardEntity.setBoardImageUrl(boardImageUrl);
-
-        boardRepository.save(boardEntity);
-
-    }catch(
-    Exception exception)
-    {
-        exception.printStackTrace();
-        return CustomResponse.databaseError();
-    }return CustomResponse.successs();
-}
 
     @Override
     public ResponseEntity<ResponseDto> deleteBoard(String userEmail, Integer boardNumber) {

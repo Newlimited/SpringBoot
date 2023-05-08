@@ -77,6 +77,8 @@ public class Board2Controller {
         @AuthenticationPrincipal String userEmail,
         @PathVariable("boardNumber") Integer boardNumber
         ){
-        ResponseEntity<ResponseDto> response = boardService.deleteBoard(userEmail, boardNumber);
+        ResponseEntity<ResponseDto> response = 
+        boardService.deleteBoard(userEmail, boardNumber);
         return response;
+}
 }
