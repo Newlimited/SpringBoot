@@ -31,7 +31,8 @@ public class WebSecurityConfig {
             .csrf().disable()
             .httpBasic().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeHttpRequests().antMatchers("/api/v1/**", "/api/v2/auth/**").permitAll()
+            .authorizeHttpRequests()
+            .antMatchers("/api/v1/**", "/api/v2/auth/**").permitAll()
             .antMatchers("/api/v2/board/list", "/api/v2/board/top3").permitAll()
             .antMatchers(HttpMethod.GET, "/api/v2/board/*").permitAll()
             .anyRequest().authenticated();

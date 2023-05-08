@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.yuhan.board.dto.request.Board.PostBoardRequestDto;
+import com.yuhan.board.dto.request.Board2.PostBoardRequestDto2;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,15 +36,12 @@ public class BoardEntity {
     private String writeDatetime;
     private int viewCount;
 
-
-
-    public BoardEntity(PostBoardRequestDto dto){
+    public BoardEntity(PostBoardRequestDto dto) {
         Date now = new Date();
         SimpleDateFormat simpleDateFormat = 
-        new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String writeDatetime = simpleDateFormat.format(now);
-
-        //boardNumber는 넣지 않을것이다 왜냐면 GeneratedValue를 걸어줘서 
+          //boardNumber는 넣지 않을것이다 왜냐면 GeneratedValue를 걸어줘서
         this.writerEmail = dto.getBoardWriterEmail();
         this.title = dto.getBoardTitle();
         this.content = dto.getBoardContent();
@@ -51,4 +49,19 @@ public class BoardEntity {
         this.writeDatetime = writeDatetime;
         this.viewCount = 0;
     }
+
+    public BoardEntity(String userEmail, PostBoardRequestDto2 dto) {
+        Date now = new Date();
+        SimpleDateFormat simpleDateFormat = 
+            new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String writeDatetime = simpleDateFormat.format(now);
+
+        this.writerEmail = userEmail;
+        this.title = dto.getBoardTitle();
+        this.content = dto.getBoardContent();
+        this.boardImageUrl = dto.getBoardImageUrl();
+        this.writeDatetime = writeDatetime;
+        this.viewCount = 0;
+    }
+
 }
