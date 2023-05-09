@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.yuhan.first_project.provider.JwtTokenProvider;
+import com.yuhan.first_project.provider.UserRole;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -39,7 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         filterChain.doFilter(request, response);
                         return;
                     }
-                    String subject = jwtTokenProvider.validate(jwt);
+                    UserRole subject = jwtTokenProvider.validate(jwt);
+                    
                     AbstractAuthenticationToken authenticationToken = 
                         new UsernamePasswordAuthenticationToken(subject, null, AuthorityUtils.NO_AUTHORITIES);
                         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -52,6 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 }
                 filterChain.doFilter(request, response); //이렇게 해야 다음 필터로 넘어감
+                
      }
     
      private String parseToken(HttpServletRequest request){

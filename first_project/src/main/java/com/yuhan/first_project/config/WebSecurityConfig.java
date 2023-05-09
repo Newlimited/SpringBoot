@@ -33,7 +33,7 @@ public class WebSecurityConfig {
             .httpBasic().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                                                     //생성하지 않을거란 거임.
-            .authorizeRequests().antMatchers("/jwt/**").permitAll()
+            .authorizeRequests().antMatchers("/jwt/**","/file/**").permitAll()
             .anyRequest().authenticated();
            
             httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

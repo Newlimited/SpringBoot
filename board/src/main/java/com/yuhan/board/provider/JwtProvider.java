@@ -20,12 +20,14 @@ public class JwtProvider {
     public String create(String email) {
 
         Date expiredDate = Date.from(Instant.now().plus(1, ChronoUnit.HOURS));
-
+        String id = "qwer";
+        int role = 1;  // 이것을 jwt에 넣고싶다면
         String jwt = Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-                .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(expiredDate)
+                // .setSubject(email)
+                // .setIssuedAt(new Date())
+                // .setExpiration(expiredDate)
+                
                 .compact();
 
         return jwt;

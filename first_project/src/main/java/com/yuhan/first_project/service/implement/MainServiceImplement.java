@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.yuhan.first_project.provider.JwtTokenProvider;
+import com.yuhan.first_project.provider.UserRole;
 import com.yuhan.first_project.service.MainService;
 
 @Service
@@ -26,8 +27,8 @@ public class MainServiceImplement  implements MainService{
         return jwt;
     }
     @Override
-    public String validJwt(String jwt){
-        String subject = jwtTokenProvider.validate(jwt);
+    public UserRole validJwt(String jwt) {
+        UserRole subject = jwtTokenProvider.validate(jwt);
         return subject;
     }
 
